@@ -1,40 +1,56 @@
 create table Genre(
 	id serial primary key,
 	genre_name varchar(50) not null 
-	
-	
-	
+);
+
+
+create table Singer_genre(
+	id serial primary key,
+	singer_id integer references Singer(id), 
+	genre_id integer references Genre(id)
 );
 
 
 create table Singer(
 	id serial primary key,
-	nickname varchar(50),
-	genre_id integer  references Genre(id)
-
+	nickname varchar(50) not null,
+	genre_id integer 
 );
 
 
-create table Album(
+create table Singer_album(
 	id serial primary key,
-	album_name varchar(50) not null,
-	relese_data integer not null,
-	singer_id integer references Singer(id)
+	singer_id integer references Singer(id),
+	album_id integer references album(id)
 );
 
 
-create table Tracs(
+create table album(
 	id serial primary key,
-	track_name varchar(50) not null,
-	duracin integer not null,
-	tracs_id integer references Album(id)
-
+	album_name varchar(50),
+	albume_date integer,
+	singer_id integer
 );
 
-create table Collection(
+
+create table track(
 	id serial primary key,
-	collection_name varchar(40) not null,
-	relese_date integer,
-	collection_id integer references Tracs(id)
+	track_name varchar(40) not null,
+	duration integer,
+	album_id integer references album(id)
+);
+
+create table Collection_track(
+	id serial primary key,
+	collection_album_id integer references Collection_album(id),
+	track_id integer references track(id)
 	
+	
+);
+
+
+create table Collection_album(
+	id serial primary key,
+	collection_album_name varchar(50),
+	collection_album_date integer
 );
